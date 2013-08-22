@@ -44,6 +44,96 @@
   <header>
     
       <div class="icon"></div>
+      <time datetime="2013-08-22T10:25:19.000Z"><a href="/2013/08/22/nodejs/">8月 22 2013</a></time>
+    
+    
+  
+    <h1 class="title"><a href="/2013/08/22/nodejs/">nodejs</a></h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p>首先我們來看server.js</p>
+<figure class="highlight lang-javascript"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+</pre></td><td class="code"><pre><span class="keyword">var</span> http = require(<span class="string">"http"</span>);
+
+<span class="keyword">var</span>  url = require(<span class="string">"url"</span>);
+
+<span class="function"><span class="keyword">function</span> <span class="title">start</span><span class="params">(route,handle)</span> {</span>
+  <span class="function"><span class="keyword">function</span> <span class="title">onRequest</span><span class="params">(request, response)</span> {</span>
+  	<span class="keyword">var</span> pathname = url.parse(request.url).pathname;
+  	<span class="comment">//var postData = "";</span>
+  	request.setEncoding(<span class="string">"utf8"</span>);
+
+    request.addListener(<span class="string">"data"</span>, <span class="keyword">function</span>(postDataChunk) {
+     <span class="comment">// postData += postDataChunk;</span>
+     <span class="comment">// console.log("Received POST data chunk '"+</span>
+     <span class="comment">// postDataChunk + "'.");</span>
+    });
+
+    request.addListener(<span class="string">"end"</span>, <span class="keyword">function</span>() {
+      route(handle, pathname, response, request);
+    });
+
+
+    console.log(<span class="string">"Request for "</span> + pathname + <span class="string">" received."</span>);
+  }
+
+  http.createServer(onRequest).listen(<span class="number">8888</span>);
+  console.log(<span class="string">"Server has started."</span>);
+}
+
+exports.start = start;
+</pre></td></tr></table></figure>
+
+
+    
+  </div>
+  <footer class="end-sep">
+    
+      
+      
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+
+  <article class="post">
+  <header>
+    
+      <div class="icon"></div>
       <time datetime="2013-08-22T06:39:20.000Z"><a href="/2013/08/22/ssh-keygen/">8月 22 2013</a></time>
     
     
@@ -55,8 +145,17 @@
   
   <div class="entry">
     
-      <p>如何使用ssh-keygen
-ssh</p>
+      <p>如何使用ssh-keygen</p>
+<figure class="highlight lang-javascri"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">function</span>  <span class="title">aa</span><span class="params">()</span></span>
+<span class="cell">{
+  alert("A");
+}</span>
+</pre></td></tr></table></figure>
+
 
     
   </div>
@@ -117,16 +216,38 @@ ssh</p>
   
     
     
+
+<div class="widget tag first">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
   
-    
-    
+    <li><a href="/tags/nodejs-route/">nodejs route</a><small>1</small></li>
+  
+  </ul>
+</div>
+
   
     
     
 
-<div class="widget recent-posts first">
+<div class="widget tagcloud">
+  <h3 class="title">标签云</h3>
+  <div class="entry">
+    <a href="/tags/nodejs-route/" style="font-size: 10.00px;">nodejs route</a>
+  </div>
+</div>
+
+  
+    
+    
+
+<div class="widget recent-posts">
   <h3 class="title">最近的文章</h3>
   <ul class="entry">
+    
+      <li>
+        <a href="/2013/08/22/nodejs/">nodejs</a>
+      </li>
     
       <li>
         <a href="/2013/08/22/ssh-keygen/">ssh-keygen</a>
@@ -143,7 +264,7 @@ ssh</p>
     
     
 
-<div class="widget blogroll">
+<div class="widget blogroll first newline">
   <h3 class="title">友情链接</h3>
   <ul class="entry">
   
