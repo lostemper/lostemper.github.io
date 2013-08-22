@@ -48,6 +48,144 @@
   <header>
     
       <div class="icon"></div>
+      <time datetime="2013-08-22T10:31:44.000Z"><a href="/2013/08/22/googletrackingpix/">8月 22 2013</a></time>
+    
+    
+  
+    <h1 class="title"><a href="/2013/08/22/googletrackingpix/">googletrackingPix</a></h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <blockquote>
+<p>如何避免因為谷歌追踪碼產生的一像素圖片而影響原有的網頁佈局</p>
+</blockquote>
+<hr>
+<h2><div  id="content"  style="display:none"></div></h2>
+<figure class="highlight lang-javascript"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">function</span> <span class="title">googleTrackingPixel</span><span class="params">(googleId,googleLable)</span> {</span>
+    <span class="comment">// set google variables as globals</span>
+    window.google_conversion_id = googleId;
+    window.google_conversion_language = <span class="string">"en"</span>;
+    window.google_conversion_format = <span class="string">"3"</span>;
+    window.google_conversion_color = <span class="string">"ffffff"</span>;
+    window.google_conversion_label = googleLable;
+    window.google_conversion_value = <span class="number">0</span>;
+
+    <span class="keyword">var</span> oldDocWrite = document.write ;
+
+    document.write = <span class="keyword">function</span>(node){
+        $(<span class="string">"content"</span>).append(node);
+    }
+
+    $.getScript(<span class="string">"http://www.googleadservices.com/pagead/conversion.js"</span>, <span class="keyword">function</span>() {
+        setTimeout(<span class="keyword">function</span>() { 
+            document.write = oldDocWrite;
+            <span class="comment">//document.getElementsByTagName("img")[0].style.position= "absolute";</span>
+        }, <span class="number">100</span>);
+
+    })
+}
+<span class="function"><span class="keyword">function</span>  <span class="title">yahooTracking</span><span class="params">(ysmAccountId)</span>  {</span>
+    
+    window.ysm_customData = <span class="keyword">new</span> Object();
+    window.ysm_customData.conversion = <span class="string">"transId=,currency=,amount="</span>;
+    window.ysm_accountid  = ysmAccountId;
+
+    <span class="keyword">var</span> oldDocWrite = document.write ;
+    document.write = <span class="keyword">function</span>(node){
+        $(<span class="string">"#content"</span>).append(node);
+    }
+    <span class="keyword">var</span> ysm_url = <span class="string">"http://srv2.wa.marketingsolutions.yahoo.com/script/ScriptServlet?aid="</span> + ysm_accountid;
+
+    $.getScript(ysm_url, <span class="keyword">function</span>() {
+        setTimeout(<span class="keyword">function</span>() { 
+            document.write = oldDocWrite;
+        }, <span class="number">100</span>);
+    });
+
+}
+
+$(document).ready(<span class="keyword">function</span>(){
+    <span class="comment">//google  text version</span>
+	googleTrackingPixel(<span class="number">985868766</span>,<span class="string">"VKDGCILDwgYQ3tOM1gM"</span>);
+    <span class="comment">//google  picture version</span>
+    googleTrackingPixel(<span class="number">981625053</span>,<span class="string">"4jzVCJvH-AYQ3dGJ1AM"</span>);
+    <span class="comment">//yahoo  tracking</span>
+    yahooTracking(<span class="string">"1PGHGH36KO2F29724UIF6MAEO7S"</span>);
+});
+</pre></td></tr></table></figure>
+
+
+    
+  </div>
+  <footer class="end-sep">
+    
+      
+      
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+  
+    <article class="post">
+  <header>
+    
+      <div class="icon"></div>
       <time datetime="2013-08-22T10:25:19.000Z"><a href="/2013/08/22/nodejs/">8月 22 2013</a></time>
     
     
@@ -249,6 +387,10 @@ exports.start = start;
 <div class="widget recent-posts">
   <h3 class="title">最近的文章</h3>
   <ul class="entry">
+    
+      <li>
+        <a href="/2013/08/22/googletrackingpix/">googletrackingPix</a>
+      </li>
     
       <li>
         <a href="/2013/08/22/nodejs/">nodejs</a>
