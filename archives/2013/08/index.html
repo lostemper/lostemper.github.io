@@ -96,8 +96,8 @@
   
   <div class="entry">
     
-      <p>**Q:如何避免因為谷歌追踪碼產生的一像素圖片影響原有的網頁佈局</p>
-<p>**A:首先在body中插入一個瀏覽器不會繪製的div,留做將來給google生成img做容器。  </p>
+      <h2>Q:如何避免因為谷歌追踪碼產生的一像素圖片影響原有的網頁佈局</h2>
+<h2>A:首先在body中插入一個瀏覽器不會繪製的div,留做將來給google生成img做容器。</h2>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 </pre></td><td class="code"><pre><span class="tag">&lt;<span class="title">div</span>  <span class="attribute">id</span>=<span class="value">"content"</span>  <span class="attribute">style</span>=<span class="value">"display:none"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
 </pre></td></tr></table></figure>
@@ -133,6 +133,15 @@
 29
 30
 31
+32
+33
+34
+35
+36
+37
+38
+39
+40
 </pre></td><td class="code"><pre><span class="function"><span class="keyword">function</span> <span class="title">googleTrackingPixel</span><span class="params">(googleId,googleLable)</span> {</span>
     <span class="comment">// set google variables as globals</span>
     window.google_conversion_id = googleId;
@@ -145,24 +154,33 @@
     <span class="keyword">var</span> oldDocWrite = document.write ;
 
     document.write = <span class="keyword">function</span>(node){
-        $(<span class="string">"content"</span>).append(node);
-    }
+        $(<span class="string">"#content"</span>).append(node);
+    };
+    window.zl_times = window.zl_times || <span class="number">0</span>;
+
+
+    <span class="keyword">var</span>  addTimes = <span class="keyword">function</span>()  {
+          window.zl_times =  window.zl_times +<span class="number">1</span>;
+         <span class="comment">//console.info("add times times=" +window.zl_times);</span>
+    };
+   
 
     $.getScript(<span class="string">"http://www.googleadservices.com/pagead/conversion.js"</span>, <span class="keyword">function</span>() {
-        setTimeout(<span class="keyword">function</span>() { 
-            document.write = oldDocWrite;
-            <span class="comment">//document.getElementsByTagName("img")[0].style.position= "absolute";</span>
-        }, <span class="number">100</span>);
-
-    })
+        setTimeout(  <span class="keyword">function</span>() { 
+                document.write = oldDocWrite;
+                addTimes();
+                <span class="comment">//console.info("set timeout times="+ window.zl_times);</span>
+                <span class="keyword">if</span>(window.zl_times &lt; <span class="number">2</span>)  {
+                   googleTrackingPixel(<span class="number">1234</span>,<span class="string">"abcd"</span>);
+                } 
+                <span class="comment">//document.getElementsByTagName("img")[0].style.position= "absolute";</span>
+           }, <span class="number">100</span>);
+    });
 }
-
 
 $(document).ready(<span class="keyword">function</span>(){
     <span class="comment">//google  text version</span>
-    <span class="keyword">var</span>  googleId = <span class="number">1234</span>;
-    <span class="keyword">var</span>  googleLable = <span class="string">"abcd1234"</span>;
-	googleTrackingPixel(googleId,googleLable);
+    googleTrackingPixel(<span class="number">5678</span>,<span class="string">"efgh"</span>);
 });
 </pre></td></tr></table></figure>
 
