@@ -46,6 +46,66 @@
 
 
   
+    <article class="fixIE">
+  <header>
+    
+      <div class="icon"></div>
+      <time datetime="2013-08-29T08:28:44.000Z"><a href="/2013/08/29/timeout/">8月 29 2013</a></time>
+    
+    
+  
+    <h1 class="title"><a href="/2013/08/29/timeout/">Fix IE window.setTimeout</a></h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <h2>How to Fix the window.setTimeout&#39;s bug that  it can&#39;t pass parameters</h2>
+<figure class="highlight lang-javascript"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="code"><pre>window.onload = <span class="keyword">function</span>() {
+	<span class="comment">//Firefox,Safari下的setTimeout可以传参数而IE不可以，故改写此方法使得都可以传参数。</span>
+	<span class="keyword">var</span> st = window.setTimeout;
+	window.setTimeout = <span class="keyword">function</span>(func, delay) {
+		<span class="keyword">if</span> (<span class="keyword">typeof</span> func == <span class="string">'function'</span>) {
+			<span class="keyword">var</span> args = Array.prototype.slice.call(arguments, <span class="number">2</span>);
+			<span class="keyword">var</span> f = <span class="keyword">function</span>() {
+				func.apply(<span class="literal">null</span>, args);
+			};
+			<span class="keyword">return</span> st(f, delay);
+		}
+		<span class="keyword">return</span> st(func, delay);
+	}
+}
+</pre></td></tr></table></figure>
+
+
+    
+  </div>
+  <footer class="end-sep">
+    
+      
+      
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+  
     <article class="post">
   <header>
     
@@ -244,6 +304,10 @@ $(document).ready(<span class="keyword">function</span>(){
 <div class="widget recent-posts">
   <h3 class="title">最近的文章</h3>
   <ul class="entry">
+    
+      <li>
+        <a href="/2013/08/29/timeout/">Fix IE window.setTimeout</a>
+      </li>
     
       <li>
         <a href="/2013/08/23/baby/">baby</a>

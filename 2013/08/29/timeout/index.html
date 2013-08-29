@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
   
-  <title>baby | 绿茶</title>
+  <title>Fix IE window.setTimeout | 绿茶</title>
   <meta name="author" content="Richard Xu">
   
   <meta name="description" content="A Programmer">
@@ -12,7 +12,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-  
+  <meta property="og:title" content="Fix IE window.setTimeout"/>
   <meta property="og:site_name" content="绿茶"/>
 
   <link rel="alternate" href="/atom.xml" title="绿茶" type="application/atom+xml">
@@ -41,36 +41,56 @@
   <div class="clearfix"></div>
 </nav>
 <div class="clearfix"></div></header>
-    <div class="content">
-<h2 class="archive-title tag">baby</h2>
-
-
-  
-    <article class="post">
+    <div class="content"><article class="fixIE">
   <header>
     
       <div class="icon"></div>
-      <time datetime="2013-08-22T18:14:46.000Z"><a href="/2013/08/23/baby/">8月 23 2013</a></time>
+      <time datetime="2013-08-29T08:28:44.000Z"><a href="/2013/08/29/timeout/">8月 29 2013</a></time>
     
     
   
-    <h1 class="title"><a href="/2013/08/23/baby/">baby</a></h1>
+    <h1 class="title">Fix IE window.setTimeout</h1>
   
 
   </header>
   
   <div class="entry">
     
-      <h4>可爱的宝宝</h4>
-<p><a href="http://www.flickr.com/photos/100665342@N02/9572195124/" title="Flickr 上 徐敏锐 的 宝宝"><img src="http://farm4.staticflickr.com/3682/9572195124_b9ddb1443c_o.jpg" width="480" height="643" alt="宝宝"></a></p>
-<h4>美丽的荷花</h4>
-<p><a href="http://www.flickr.com/photos/100665342@N02/9572184274/" title="Flickr 上 徐敏锐 的 荷花"><img src="http://farm3.staticflickr.com/2813/9572184274_cfef86a4c6.jpg" width="500" height="375" alt="荷花"></a></p>
-<h4>五缘湾傍晚景色</h4>
-<p><a href="http://www.flickr.com/photos/100665342@N02/9572180826/" title="Flickr 上 徐敏锐 的 五缘湾"><img src="http://farm8.staticflickr.com/7360/9572180826_e95f4ed0f2.jpg" width="500" height="375" alt="五缘湾"></a></p>
+      <h2>How to Fix the window.setTimeout&#39;s bug that  it can&#39;t pass parameters</h2>
+<figure class="highlight lang-javascript"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="code"><pre>window.onload = <span class="keyword">function</span>() {
+	<span class="comment">//Firefox,Safari下的setTimeout可以传参数而IE不可以，故改写此方法使得都可以传参数。</span>
+	<span class="keyword">var</span> st = window.setTimeout;
+	window.setTimeout = <span class="keyword">function</span>(func, delay) {
+		<span class="keyword">if</span> (<span class="keyword">typeof</span> func == <span class="string">'function'</span>) {
+			<span class="keyword">var</span> args = Array.prototype.slice.call(arguments, <span class="number">2</span>);
+			<span class="keyword">var</span> f = <span class="keyword">function</span>() {
+				func.apply(<span class="literal">null</span>, args);
+			};
+			<span class="keyword">return</span> st(f, delay);
+		}
+		<span class="keyword">return</span> st(func, delay);
+	}
+}
+</pre></td></tr></table></figure>
+
 
     
   </div>
-  <footer class="end-sep">
+  <footer>
     
       
       
@@ -80,13 +100,11 @@
 </article>
 
 
-  
-
-  <nav id="pagination">
-  
-  
-  <div class="clearfix"></div>
-</nav>
+<section id="comment">
+  <h1 class="title">留言</h1>
+  <div class="ds-thread" data-title="Fix IE window.setTimeout">
+  </div>
+</section>
 </div>
   </div>
   <div class="widget-wrapper">
