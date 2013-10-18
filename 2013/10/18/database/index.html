@@ -59,6 +59,17 @@
       <p>Where are B-Tree indexes stored?</p>
 <p>In most cases, indexes are stored on a physical disk or in memory. This tree data structure contains pointers to the actual table records. The pointers are actually the IDs of your table rows (at least when you use InnoDB storage engine). There are some differences in how storage engines store your data structure on the disk though.</p>
 <p>For example, if you use MySQL’s MyISAM, your indexes will be compressed on disk to save space. MyISAM will also use the B-tree’s leaves to point to the physical disk address instead of the row IDs. InnoDB won’t do this… it stores the row IDs in its leaves. In the example of this article, we’re assuming you’re using the more superior InnoDB storage engine. Also, InnoDB uses a very smart algorithm to cache indexes in memory if possible, which makes performance even better. I’m not going into detail about this, but if you wanna know more, have a look at The InnoDB Buffer Pool.</p>
+<figure class="highlight lang-javascript"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">function</span>   <span class="title">call</span><span class="params">()</span>  
+{</span>
+  alert(<span class="string">"hello"</span>);
+}
+</pre></td></tr></table></figure>
+
+<p>測試</p>
 
     
   </div>
