@@ -46,6 +46,38 @@
 
 
   
+    <article class="b-tree">
+  <header>
+    
+      <div class="icon"></div>
+      <time datetime="2013-10-18T06:03:53.000Z"><a href="/2013/10/18/database/">10月 18 2013</a></time>
+    
+    
+  
+    <h1 class="title"><a href="/2013/10/18/database/">database</a></h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p>Where are B-Tree indexes stored?</p>
+<p>In most cases, indexes are stored on a physical disk or in memory. This tree data structure contains pointers to the actual table records. The pointers are actually the IDs of your table rows (at least when you use InnoDB storage engine). There are some differences in how storage engines store your data structure on the disk though.</p>
+<p>For example, if you use MySQL’s MyISAM, your indexes will be compressed on disk to save space. MyISAM will also use the B-tree’s leaves to point to the physical disk address instead of the row IDs. InnoDB won’t do this… it stores the row IDs in its leaves. In the example of this article, we’re assuming you’re using the more superior InnoDB storage engine. Also, InnoDB uses a very smart algorithm to cache indexes in memory if possible, which makes performance even better. I’m not going into detail about this, but if you wanna know more, have a look at The InnoDB Buffer Pool.</p>
+
+    
+  </div>
+  <footer class="end-sep">
+    
+      
+      
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+  
     <article class="fixIE">
   <header>
     
@@ -304,6 +336,10 @@ $(document).ready(<span class="keyword">function</span>(){
 <div class="widget recent-posts">
   <h3 class="title">最近的文章</h3>
   <ul class="entry">
+    
+      <li>
+        <a href="/2013/10/18/database/">database</a>
+      </li>
     
       <li>
         <a href="/2013/08/29/timeout/">Fix IE window.setTimeout</a>

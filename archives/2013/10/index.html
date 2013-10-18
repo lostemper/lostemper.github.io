@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
   
-  <title>googletrackingPix | 绿茶</title>
+  <title>归档：2013/10 | 绿茶</title>
   <meta name="author" content="Richard Xu">
   
   <meta name="description" content="A Programmer">
@@ -12,7 +12,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-  <meta property="og:title" content="googletrackingPix"/>
+  
   <meta property="og:site_name" content="绿茶"/>
 
   <link rel="alternate" href="/atom.xml" title="绿茶" type="application/atom+xml">
@@ -41,114 +41,33 @@
   <div class="clearfix"></div>
 </nav>
 <div class="clearfix"></div></header>
-    <div class="content"><article class="post">
+    <div class="content">
+<h2 class="archive-title">2013/10</h2>
+
+
+  
+    <article class="b-tree">
   <header>
     
       <div class="icon"></div>
-      <time datetime="2013-08-22T10:31:44.000Z"><a href="/2013/08/22/googletrackingpix/">8月 22 2013</a></time>
+      <time datetime="2013-10-18T06:03:53.000Z"><a href="/2013/10/18/database/">10月 18 2013</a></time>
     
     
   
-    <h1 class="title">googletrackingPix</h1>
+    <h1 class="title"><a href="/2013/10/18/database/">database</a></h1>
   
 
   </header>
   
   <div class="entry">
     
-      <h2>Q:如何避免因為谷歌追踪碼產生的一像素圖片影響原有的網頁佈局</h2>
-<h2>A:首先在body中插入一個瀏覽器不會繪製的div,留做將來給google生成img做容器。</h2>
-<figure class="highlight"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre><span class="tag">&lt;<span class="title">div</span>  <span class="attribute">id</span>=<span class="value">"content"</span>  <span class="attribute">style</span>=<span class="value">"display:none"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-</pre></td></tr></table></figure>
-
-<figure class="highlight lang-javascript"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-</pre></td><td class="code"><pre><span class="function"><span class="keyword">function</span> <span class="title">googleTrackingPixel</span><span class="params">(googleId,googleLable)</span> {</span>
-    <span class="comment">// set google variables as globals</span>
-    window.google_conversion_id = googleId;
-    window.google_conversion_language = <span class="string">"en"</span>;
-    window.google_conversion_format = <span class="string">"3"</span>;
-    window.google_conversion_color = <span class="string">"ffffff"</span>;
-    window.google_conversion_label = googleLable;
-    window.google_conversion_value = <span class="number">0</span>;
-
-    <span class="keyword">var</span> oldDocWrite = document.write ;
-
-    document.write = <span class="keyword">function</span>(node){
-        $(<span class="string">"#content"</span>).append(node);
-    };
-    window.zl_times = window.zl_times || <span class="number">0</span>;
-
-
-    <span class="keyword">var</span>  addTimes = <span class="keyword">function</span>()  {
-          window.zl_times =  window.zl_times +<span class="number">1</span>;
-         <span class="comment">//console.info("add times times=" +window.zl_times);</span>
-    };
-   
-
-    $.getScript(<span class="string">"http://www.googleadservices.com/pagead/conversion.js"</span>, <span class="keyword">function</span>() {
-        setTimeout(  <span class="keyword">function</span>() { 
-                document.write = oldDocWrite;
-                addTimes();
-                <span class="comment">//console.info("set timeout times="+ window.zl_times);</span>
-                <span class="keyword">if</span>(window.zl_times &lt; <span class="number">2</span>)  {
-                   googleTrackingPixel(<span class="number">1234</span>,<span class="string">"abcd"</span>);
-                } 
-                <span class="comment">//document.getElementsByTagName("img")[0].style.position= "absolute";</span>
-           }, <span class="number">100</span>);
-    });
-}
-
-$(document).ready(<span class="keyword">function</span>(){
-    <span class="comment">//google  text version</span>
-    googleTrackingPixel(<span class="number">5678</span>,<span class="string">"efgh"</span>);
-});
-</pre></td></tr></table></figure>
-
-<p>請注意對document.write的保存與臨時重寫。</p>
+      <p>Where are B-Tree indexes stored?</p>
+<p>In most cases, indexes are stored on a physical disk or in memory. This tree data structure contains pointers to the actual table records. The pointers are actually the IDs of your table rows (at least when you use InnoDB storage engine). There are some differences in how storage engines store your data structure on the disk though.</p>
+<p>For example, if you use MySQL’s MyISAM, your indexes will be compressed on disk to save space. MyISAM will also use the B-tree’s leaves to point to the physical disk address instead of the row IDs. InnoDB won’t do this… it stores the row IDs in its leaves. In the example of this article, we’re assuming you’re using the more superior InnoDB storage engine. Also, InnoDB uses a very smart algorithm to cache indexes in memory if possible, which makes performance even better. I’m not going into detail about this, but if you wanna know more, have a look at The InnoDB Buffer Pool.</p>
 
     
   </div>
-  <footer>
+  <footer class="end-sep">
     
       
       
@@ -158,11 +77,13 @@ $(document).ready(<span class="keyword">function</span>(){
 </article>
 
 
-<section id="comment">
-  <h1 class="title">留言</h1>
-  <div class="ds-thread" data-title="googletrackingPix">
-  </div>
-</section>
+  
+
+  <nav id="pagination">
+  
+  
+  <div class="clearfix"></div>
+</nav>
 </div>
   </div>
   <div class="widget-wrapper">
